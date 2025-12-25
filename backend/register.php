@@ -6,25 +6,33 @@ if (!isset($_POST['username'], $_POST['email'], $_POST['password'])) {
     exit;
 }
 
-$username = $_POST['username'];
-$email    = $_POST['email'];
+$username = trim($_POST['username']);
+$email    = trim($_POST['email']);
 $password = $_POST['password'];
+
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-$check = "SELECT id FROM users WHERE email='$email'";
-$result = mysqli_query($conn, $check);
+$db = new Database();
+$conn = $db->getConnection();
 
-if (mysqli_num_rows($result) > 0) {
+$check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+$check->bind_param("s", $email);
+$check->execute();
+$check->store_result();
+
+if ($check->num_rows > 0) {
     echo "Email already exists";
     exit;
 }
 
-$sql = "INSERT INTO users (username, email, password)
-        VALUES ('$username', '$email', '$hashedPassword')";
+$sql = $conn->prepare(
+    "INSERT INTO users (username, email, password) VALUES (?, ?, ?)"
+);
+$sql->bind_param("sss", $username, $email, $hashedPassword);
 
-if (mysqli_query($conn, $sql)) {
+if ($sql->execute()) {
     header("Location: account.php");
     exit;
 } else {
-    echo "Error: " . mysqli_error($conn);
+    echo "Something went wrong";
 }

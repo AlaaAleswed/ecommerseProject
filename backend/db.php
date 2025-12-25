@@ -1,11 +1,32 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "projectTest";
 
-$conn = mysqli_connect($host, $user, $pass, $db);
+class Database
+{
+    private $host = "localhost";
+    private $user = "root";
+    private $pass = "";
+    private $db   = "ecommerce_db";
 
-if (!$conn) {
-    die("Database connection failed: " . mysqli_connect_error());
+    private $conn;
+
+    public function __construct()
+    {
+        $this->conn = new mysqli(
+            $this->host,
+            $this->user,
+            $this->pass,
+            $this->db
+        );
+
+        if ($this->conn->connect_error) {
+            die("Database connection failed: " . $this->conn->connect_error);
+        }
+
+        $this->conn->set_charset("utf8mb4");
+    }
+
+    public function getConnection()
+    {
+        return $this->conn;
+    }
 }

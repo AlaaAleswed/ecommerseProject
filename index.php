@@ -19,7 +19,7 @@
         <div class="container">
             <div class="navbar">
                 <div class="logo">
-                    <a href="index.php"><img src="images/logo.png" width="125px"></a>
+                    <a href="index.php"><img src="assets/logo.png" width="125px"></a>
                 </div>
                 <nav>
                     <ul id="MenuItems">
@@ -31,8 +31,8 @@
 
                     </ul>
                 </nav>
-                <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
-                <img src="images/menu.png" class="menu-icon" onClick="menutoggle()">
+                <a href="cart.html"><img src="assets/cart.png" width="30px" height="30px"></a>
+                <img src="assets/menu.png" class="menu-icon" onClick="menutoggle()">
             </div>
             <div class="row">
                 <div class="col-2">
@@ -42,7 +42,7 @@
                     <a href="products.html" class="btn">Explore Now &#8594;</a>
                 </div>
                 <div class="col-2">
-                    <img src="images/image1.png">
+                    <img src="assets/image1.png">
                 </div>
             </div>
         </div>
@@ -53,13 +53,13 @@
         <div class="small-container">
             <div class="row">
                 <div class="col-3">
-                    <img src="images/category-1.jpg">
+                    <img src="assets/category-1.jpg">
                 </div>
                 <div class="col-3">
-                    <img src="images/category-2.jpg">
+                    <img src="assets/category-2.jpg">
                 </div>
                 <div class="col-3">
-                    <img src="images/category-3 (2).jpg">
+                    <img src="assets/category-3 (2).jpg">
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
         <h2 class="title">Featured Products</h2>
         <div class="row">
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-11.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-11.jpg"></a>
                 <a href="products-details.html">
                     <h4>Downshifter Sports Shoes</h4>
                 </a>
@@ -85,7 +85,7 @@
                 <p>$50.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-2.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-2.jpg"></a>
                 <h4>Lace-Up Running Shoes</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -97,7 +97,7 @@
                 <p>$35.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-3.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-3.jpg"></a>
                 <h4>Lace Fastening Shoes</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -109,7 +109,7 @@
                 <p>$15.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-10.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-10.jpg"></a>
                 <h4>Flat Lace-Fastening Shoes</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -126,7 +126,7 @@
         <h2 class="title">Latest Products</h2>
         <div class="row">
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-5.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-5.jpg"></a>
                 <h4>Flat Heel gray hoes</h4>
                 <div class="rating">
                     <!--(before this added awesome4 cdn font link to the head)added a cdn link by searching font awesome4 icon and from the site  search the star entering the first option and getting a link of this fa-star*-->
@@ -139,7 +139,7 @@
                 <p>$50.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-3.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-3.jpg"></a>
                 <h4>Lace-Fastening black Shoes</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -151,7 +151,7 @@
                 <p>$21.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-7.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-7.jpg"></a>
                 <h4>HRX Men's cotton socks</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -163,7 +163,7 @@
                 <p>$09.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-2.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-2.jpg"></a>
                 <h4>Lace-Up Running Shoes</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -178,7 +178,7 @@
         <!--new row for the latest product-->
         <div class="row">
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-7.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-7.jpg"></a>
                 <h4>HRX cotton socks</h4>
                 <div class="rating">
                     <!--(before this added awesome4 cdn font link to the head)added a cdn link by searching font awesome4 icon and from the site  search the star entering the first option and getting a link of this fa-star*-->
@@ -191,7 +191,7 @@
                 <p>$10.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-10.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-10.jpg"></a>
                 <h4>Flat Lace-Fastening Shoes</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -203,7 +203,7 @@
                 <p>$48.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-11.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-11.jpg"></a>
                 <h4>Loafers Men (Gray)</h4>
                 <div class="rating">
                     <i class="fa fa-star-o"></i>
@@ -215,7 +215,7 @@
                 <p>$15.00</p>
             </div>
             <div class="col-4">
-                <a href="products-details.html"><img src="images/product-12.jpg"></a>
+                <a href="products-details.html"><img src="assets/product-12.jpg"></a>
                 <h4>Lace-Fastening white Shoes</h4>
                 <div class="rating">
                     <i class="fa fa-star"></i>
@@ -234,7 +234,7 @@
         <div class="small-container">
             <div class="row">
                 <div class="col-2">
-                    <img src="images/image1.png" class="offer-img">
+                    <img src="assets/image1.png" class="offer-img">
                 </div>
                 <div class="col-2">
                     <p>Exclusively Available on RedStore</p>
@@ -265,7 +265,7 @@
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star-o"></i>
                     </div>
-                    <img src="images/user-1.png">
+                    <img src="assets/user-1.png">
                     <h3>Sean Parkar</h3>
                 </div>
                 <div class="col-3">
@@ -281,7 +281,7 @@
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star-o"></i>
                     </div>
-                    <img src="images/user-2.png">
+                    <img src="assets/user-2.png">
                     <h3>Mike Smith</h3>
                 </div>
                 <div class="col-3">
@@ -296,7 +296,7 @@
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star-o"></i>
                     </div>
-                    <img src="images/user-3.png">
+                    <img src="assets/user-3.png">
                     <h3>Mabel Joe</h3>
                 </div>
             </div>
@@ -308,19 +308,19 @@
         <div class="small-container">
             <div class="row">
                 <div class="col-5">
-                    <img src="images/logo-godrej.png" alt="">
+                    <img src="assets/logo-godrej.png" alt="">
                 </div>
                 <div class="col-5">
-                    <img src="images/logo-oppo.png" alt="">
+                    <img src="assets/logo-oppo.png" alt="">
                 </div>
                 <div class="col-5">
-                    <img src="images/logo-coca-cola.png" alt="">
+                    <img src="assets/logo-coca-cola.png" alt="">
                 </div>
                 <div class="col-5">
-                    <img src="images/logo-paypal.png" alt="">
+                    <img src="assets/logo-paypal.png" alt="">
                 </div>
                 <div class="col-5">
-                    <img src="images/logo-philips.png" alt="">
+                    <img src="assets/logo-philips.png" alt="">
                 </div>
             </div>
         </div>
@@ -336,12 +336,12 @@
                     <h3>Download Our App</h3>
                     <p>Download App for Android and ios mobile phone.</p>
                     <div class="app-logo">
-                        <img src="images/play-store.png" alt="">
-                        <img src="images/app-store.png" alt="">
+                        <img src="assets/play-store.png" alt="">
+                        <img src="assets/app-store.png" alt="">
                     </div>
                 </div>
                 <div class="footer-col-2">
-                    <img src="images/logo-white.png">
+                    <img src="assets/logo-white.png">
                     <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.
                     </p>
                 </div>

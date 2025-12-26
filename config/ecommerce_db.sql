@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2025 at 04:10 PM
+-- Generation Time: Dec 25, 2025 at 07:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -147,11 +147,40 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `old_price` decimal(10,2) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `primary_image_id` int(11) DEFAULT NULL,
   `stock` int(11) DEFAULT 0,
   `featured` tinyint(1) DEFAULT 0,
   `discount_percent` int(11) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images`
+--
+
+CREATE TABLE `product_images` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `original_name` varchar(255) NOT NULL,
+  `file_size` int(11) DEFAULT 0,
+  `mime_type` varchar(50) NOT NULL,
+  `is_primary` tinyint(1) DEFAULT 0,
+  `display_order` int(11) DEFAULT 0,
+  `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images_backup`
+--
+
+CREATE TABLE `product_images_backup` (
+  `product_id` int(11) NOT NULL DEFAULT 0,
+  `old_filename` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -303,7 +332,17 @@ ALTER TABLE `payments`
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_products_category` (`category_id`),
-  ADD KEY `idx_products_featured` (`featured`);
+  ADD KEY `idx_products_featured` (`featured`),
+  ADD KEY `idx_primary_image_id` (`primary_image_id`);
+
+--
+-- Indexes for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_product_id` (`product_id`),
+  ADD KEY `idx_is_primary` (`is_primary`),
+  ADD KEY `idx_display_order` (`display_order`);
 
 --
 -- Indexes for table `reviews`
@@ -399,6 +438,12 @@ ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `product_images`
+--
+ALTER TABLE `product_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
@@ -476,7 +521,14 @@ ALTER TABLE `payments`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
+  ADD CONSTRAINT `fk_products_primary_image` FOREIGN KEY (`primary_image_id`) REFERENCES `product_images` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `reviews`

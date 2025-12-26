@@ -29,7 +29,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="container">
       <div class="navbar">
         <div class="logo">
-          <a href="index.php"><img src="images/logo.png" width="125px" /></a>
+          <a href="index.php"><img src="assets/logo.png" width="125px" /></a>
         </div>
         <nav>
           <ul id="MenuItems">
@@ -41,9 +41,9 @@ if (isset($_SESSION['user_id'])) {
           </ul>
         </nav>
         <a href="cart.html"
-          ><img src="images/cart.png" width="30px" height="30px"
+          ><img src="assets/cart.png" width="30px" height="30px"
         /></a>
-        <img src="images/menu.png" class="menu-icon" onClick="menutoggle()" />
+        <img src="assets/menu.png" class="menu-icon" onClick="menutoggle()" />
       </div>
     </div>
     <!--</div>-->
@@ -54,7 +54,7 @@ if (isset($_SESSION['user_id'])) {
       <div class="container">
         <div class="row">
           <div class="col-2">
-            <img src="images/image1.png" width="100%" />
+            <img src="assets/image1.png" width="100%" />
           </div>
           <div class="col-2">
             <div class="form-container">
@@ -90,12 +90,12 @@ if (isset($_SESSION['user_id'])) {
             <h3>Download Our App</h3>
             <p>Download App for Android and ios mobile phone.</p>
             <div class="app-logo">
-              <img src="images/play-store.png" alt="" />
-              <img src="images/app-store.png" alt="" />
+              <img src="assets/play-store.png" alt="" />
+              <img src="assets/app-store.png" alt="" />
             </div>
           </div>
           <div class="footer-col-2">
-            <img src="images/logo-white.png" />
+            <img src="assets/logo-white.png" />
             <p>
               Our Purpose Is To Sustainably Make the Pleasure and Benefits of
               Sports Accessible to the Many.

@@ -59,7 +59,7 @@ class Cart
             return false;
         }
         $sql = 'SELECT c.*, p.name, p.price, p.discount_percent,
-    (SELECT filename FROM product_images WHERE product_id = p.id LIMIT 1) as image
+    (SELECT filename FROM product_images WHERE product_id = p.id LIMIT 1) AS image
     FROM ' . $this->table . ' c
     JOIN products p ON c.product_id = p.id
     WHERE c.user_id = :user_id

@@ -6,47 +6,7 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width-device-width, initial-scale=1.0" />
-    <title>All Products - Redstore</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <!--added a cdn link by searching font awesome4 cdn and getting this link from https://www.bootstrapcdn.com/fontawesome/ this url*/-->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-  </head>
-  <body>
-    <!--<div class ="header">-->
-    <div class="container">
-      <div class="navbar">
-        <div class="logo">
-          <a href="index.php"><img src="assets/logo.png" width="125px" /></a>
-        </div>
-        <nav>
-          <ul id="MenuItems">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">Contact</a></li>
-            <li><a href="account.html">Account</a></li>
-          </ul>
-        </nav>
-        <a href="cart.html"
-          ><img src="assets/cart.png" width="30px" height="30px"
-        /></a>
-        <img src="assets/menu.png" class="menu-icon" onClick="menutoggle()" />
-      </div>
-    </div>
-    <!--</div>-->
+<?php include "includes/header.php"; ?>
 
     <!------------------------------ account-page details------------------------------>
 
@@ -63,14 +23,14 @@ if (isset($_SESSION['user_id'])) {
                 <span onclick="register()">Register</span>
                 <hr id="Indicator" />
               </div>
-              <form id="LoginForm" method="POST" action="backend/login.php">
+              <form id="LoginForm" method="POST" action="auth/login.php">
                 <input type="text" name="username" placeholder="username" required  />
                 <input type="password" name="password" placeholder="Password" required />
                 <button type="submit" class="btn">Login</button>
                 <a href="">Forgot password</a>
               </form>
 
-              <form id="RegForm" method="POST" action="backend/register.php">
+              <form id="RegForm" method="POST" action="auth/register.php">
                 <input type="text" name="username" placeholder="Username" required />
                 <input type="email" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
@@ -82,65 +42,7 @@ if (isset($_SESSION['user_id'])) {
       </div>
     </div>
 
-    <!----------------------------------footer------------------------------------->
-    <div class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="footer-col-1">
-            <h3>Download Our App</h3>
-            <p>Download App for Android and ios mobile phone.</p>
-            <div class="app-logo">
-              <img src="assets/play-store.png" alt="" />
-              <img src="assets/app-store.png" alt="" />
-            </div>
-          </div>
-          <div class="footer-col-2">
-            <img src="assets/logo-white.png" />
-            <p>
-              Our Purpose Is To Sustainably Make the Pleasure and Benefits of
-              Sports Accessible to the Many.
-            </p>
-          </div>
-          <div class="footer-col-3">
-            <h3>Useful Links</h3>
-            <ul>
-              <li>Coupons</li>
-              <li>Blog Post</li>
-              <li>Return Policy</li>
-              <li>Join Affiliate</li>
-            </ul>
-          </div>
-          <div class="footer-col-4">
-            <h3>Follow us</h3>
-            <ul>
-              <li>Facebook</li>
-              <li>Twitter</li>
-              <li>Instagram</li>
-              <li>Youtube</li>
-            </ul>
-          </div>
-        </div>
-
-        <hr />
-        <!--horizontal line-->
-        <p class="copyright">Copyright 2021 - Apurba Kr. Pramanik</p>
-      </div>
-    </div>
-
-    <!-----------------------------------js for toggle menu-------------------------------------->
-    <script>
-      var menuItems = document.getElementById("MenuItems");
-
-      MenuItems.style.maxHeight = "0px";
-      function menutoggle() {
-        if (MenuItems.style.maxHeight == "0px") {
-          MenuItems.style.maxHeight = "200px";
-        } else {
-          MenuItems.style.maxHeight = "0px";
-        }
-      }
-    </script>
-
+    
     <!-----------------------------------js for toggle form-------------------------------------->
     <script>
       var LoginForm = document.getElementById("LoginForm");
@@ -157,9 +59,6 @@ if (isset($_SESSION['user_id'])) {
         LoginForm.style.transform = "translateX(300px)";
         Indicator.style.transform = "translateX(0px)";
       }
-
-
-      
     </script>
-  </body>
-</html>
+  
+<?php include "includes/footer.php"; ?>

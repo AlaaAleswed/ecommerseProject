@@ -1,38 +1,46 @@
 <?php
-require_once "db.php";
+session_start();
+require_once "../classes/Database.php";
 
-if (!isset($_POST['username'], $_POST['email'], $_POST['password'])) {
-    header("Location: account.php");
-    exit;
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
 
-$username = trim($_POST['username']);
-$email    = trim($_POST['email']);
-$password = $_POST['password'];
+    if (empty($username) || empty($email) || empty($password)) {
+        die("All fields are required.");
+    }
 
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-$db = new Database();
-$conn = $db->getConnection();
+    try {
+        $db = Database::getInstance();
+        $conn = $db->getConnection();
 
-$check = $conn->prepare("SELECT id FROM users WHERE email = ?");
-$check->bind_param("s", $email);
-$check->execute();
-$check->store_result();
+        $stmt = $conn->prepare("SELECT id FROM users WHERE username = :username OR email = :email");
+        $stmt->execute(['username' => $username, 'email' => $email]);
 
-if ($check->num_rows > 0) {
-    echo "Email already exists";
-    exit;
-}
+        if ($stmt->rowCount() > 0) {
+            die("Username or email already exists.");
+        }
 
-$sql = $conn->prepare(
-    "INSERT INTO users (username, email, password) VALUES (?, ?, ?)"
-);
-$sql->bind_param("sss", $username, $email, $hashedPassword);
+        $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, 'user')");
+        $stmt->execute([
+            'username' => $username,
+            'email' => $email,
+            'password' => $hashed_password
+        ]);
 
-if ($sql->execute()) {
-    header("Location: account.php");
-    exit;
+        $_SESSION['user_id'] = $conn->lastInsertId();
+        $_SESSION['username'] = $username;
+
+        header("Location: ../index.php");
+        exit;
+
+    } catch (PDOException $e) {
+        die("Error: " . $e->getMessage());
+    }
 } else {
-    echo "Something went wrong";
+    header("Location: ../account.php");
+    exit;
 }

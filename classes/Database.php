@@ -5,7 +5,7 @@ class Database {
     private $conn;
 
     private function __construct() {
-        $config = require_once 'config/database.php';
+        $config = require_once __DIR__ . '/../config/database.php';
 
         try {
             // Create connection based on preferred method (MySQLi or PDO)

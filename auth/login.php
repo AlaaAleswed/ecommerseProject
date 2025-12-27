@@ -1,36 +1,44 @@
 <?php
 session_start();
-require_once "db.php";
+require_once "../classes/Database.php";
 
-if (!isset($_POST['username'], $_POST['password'])) {
-    header("Location: ../account.php");
-    exit;
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username']);
+    $password = $_POST['password'];
 
-$username = trim($_POST['username']);
-$password = $_POST['password'];
+    if (empty($username) || empty($password)) {
+        die("All fields are required.");
+    }
 
-$db = new Database();
-$conn = $db->getConnection();
+    try {
+        $db = Database::getInstance();
+        $conn = $db->getConnection();
 
-$sql = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
-$sql->bind_param("s", $username);
-$sql->execute();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username OR email = :username");
+        $stmt->execute(['username' => $username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$result = $sql->get_result();
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role']; 
 
-if ($result->num_rows === 1) {
-    $user = $result->fetch_assoc();
+            if ($user['role'] === 'admin') {
+                header("Location: ../adminDashboard/index.php");
+                exit;
+            } else {
+                header("Location: ../index.php");
+                exit;
+            }
 
-    if (password_verify($password, $user['password'])) {
-        $_SESSION['user_id']  = $user['id'];
-        $_SESSION['username'] = $user['username'];
+        } else {
+            die("Invalid username or password.");
+        }
 
-        header("Location: ../index.php");
-        exit;
-    } else {
-        echo "Wrong password";
+    } catch (PDOException $e) {
+        die("Error: " . $e->getMessage());
     }
 } else {
-    echo "User not found";
+    header("Location: ../account.php");
+    exit;
 }

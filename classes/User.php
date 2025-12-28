@@ -211,6 +211,36 @@ class User
         }
         return null;
     }
+    public function updateProfile($user_id)
+{
+    $sql = "UPDATE {$this->table} SET full_name = :full_name, phone = :phone WHERE id = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':full_name', $this->full_name ?? '');
+    $stmt->bindValue(':phone', $this->phone ?? '');
+    $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+public function changePassword($user_id, $current_password, $new_password)
+{
+    // First verify current password
+    $sql = "SELECT password FROM {$this->table} WHERE id = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($user && password_verify($current_password, $user['password'])) {
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        $sql = "UPDATE {$this->table} SET password = :password WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':password', $hashed_password);
+        $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+    
+    return false;
+}
 }
 
 

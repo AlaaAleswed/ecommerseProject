@@ -48,13 +48,13 @@ class Review
 
             $stmt = $this->db->prepare($sql);
 
-            $stmt->bindValue(':product_id', (int)$this->product_id, PDO::PARAM_INT);
-            $stmt->bindValue(':user_id', (int)$this->user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':product_id', (int) $this->product_id, PDO::PARAM_INT);
+            $stmt->bindValue(':user_id', (int) $this->user_id, PDO::PARAM_INT);
             $stmt->bindValue(':order_id', $this->order_id ?? null, $this->order_id ? PDO::PARAM_INT : PDO::PARAM_NULL);
             $stmt->bindValue(':order_item_id', $this->order_item_id ?? null, $this->order_item_id ? PDO::PARAM_INT : PDO::PARAM_NULL);
-            $stmt->bindValue(':rating', (int)$this->rating, PDO::PARAM_INT);
+            $stmt->bindValue(':rating', (int) $this->rating, PDO::PARAM_INT);
             $stmt->bindValue(':comment', isset($this->comment) ? htmlspecialchars(strip_tags($this->comment)) : null);
-            $stmt->bindValue(':approved', isset($this->approved) ? (int)$this->approved : 1, PDO::PARAM_INT);
+            $stmt->bindValue(':approved', isset($this->approved) ? (int) $this->approved : 1, PDO::PARAM_INT);
 
             $stmt->execute();
 
@@ -70,7 +70,8 @@ class Review
 
     public function readOne($id)
     {
-        if (!is_numeric($id)) return false;
+        if (!is_numeric($id))
+            return false;
 
         $sql = "SELECT r.*, u.username, p.name AS product_name
                 FROM {$this->table} r
@@ -79,7 +80,7 @@ class Review
                 WHERE r.id = :id";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', (int)$id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', (int) $id, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -87,15 +88,17 @@ class Review
 
     public function update()
     {
-        if (empty($this->id)) return false;
+        if (empty($this->id))
+            return false;
 
         $fields = [];
-        $params = [':id' => (int)$this->id];
+        $params = [':id' => (int) $this->id];
 
         if (isset($this->rating)) {
-            if ($this->rating < 1 || $this->rating > 5) return false;
+            if ($this->rating < 1 || $this->rating > 5)
+                return false;
             $fields[] = "rating = :rating";
-            $params[':rating'] = (int)$this->rating;
+            $params[':rating'] = (int) $this->rating;
         }
 
         if (isset($this->comment)) {
@@ -105,10 +108,11 @@ class Review
 
         if (isset($this->approved)) {
             $fields[] = "approved = :approved";
-            $params[':approved'] = (int)$this->approved;
+            $params[':approved'] = (int) $this->approved;
         }
 
-        if (empty($fields)) return false;
+        if (empty($fields))
+            return false;
 
         $sql = "UPDATE {$this->table} SET " . implode(', ', $fields) . " WHERE id = :id";
         $stmt = $this->db->prepare($sql);
@@ -116,11 +120,33 @@ class Review
         return $stmt->execute($params);
     }
 
+    public function readOneByProductAndUser($product_id, $user_id, $order_id = null)
+    {
+        $sql = "SELECT * FROM {$this->table} 
+                WHERE product_id = :product_id AND user_id = :user_id";
+        if ($order_id) {
+            $sql .= " AND order_id = :order_id";
+        }
+        $sql .= " LIMIT 1";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        if ($order_id) {
+            $stmt->bindValue(':order_id', $order_id, PDO::PARAM_INT);
+        }
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     public function delete($id)
     {
-        if (!is_numeric($id)) return false;
+        if (!is_numeric($id))
+            return false;
 
         $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
-        return $stmt->execute([':id' => (int)$id]);
+        return $stmt->execute([':id' => (int) $id]);
     }
 }

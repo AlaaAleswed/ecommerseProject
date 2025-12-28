@@ -1,0 +1,75 @@
+<?php
+session_start();
+require_once 'classes/Address.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: account.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+$address_type = $_GET['type'] ?? 'shipping';
+$address = new Address();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $address->user_id = $user_id;
+    $address->address_type = $address_type;
+    $address->full_name = $_POST['full_name'];
+    $address->phone = $_POST['phone'];
+    $address->address_line1 = $_POST['address_line1'];
+    $address->city = $_POST['city'];
+    $address->country = $_POST['country'] ?? 'US';
+    $address->postal_code = $_POST['postal_code'] ?? '';
+    $address->is_default = isset($_POST['is_default']) ? 1 : 0;
+    
+    if ($address->create()) {
+        header('Location: checkout.php');
+        exit();
+    }
+}
+
+include 'includes/header.php';
+?>
+
+<div class="small-container cart-page">
+    <h2>Add <?= ucfirst($address_type) ?> Address</h2>
+    
+    <form method="POST" action="" class="address-form">
+        <div class="form-group">
+            <input type="text" name="full_name" placeholder="Full Name" required>
+        </div>
+        
+        <div class="form-group">
+            <input type="text" name="phone" placeholder="Phone" required>
+        </div>
+        
+        <div class="form-group">
+            <input type="text" name="address_line1" placeholder="Address" required>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" name="city" placeholder="City" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="postal_code" placeholder="ZIP Code">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <input type="text" name="country" placeholder="Country" value="US">
+        </div>
+        
+        <div class="form-check">
+            <input type="checkbox" name="is_default" id="is_default">
+            <label for="is_default">Set as default <?= $address_type ?> address</label>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn">Save Address</button>
+            <a href="checkout.php" class="btn cancel-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<?php include 'includes/footer.php'; ?>

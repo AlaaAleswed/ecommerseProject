@@ -25,7 +25,7 @@ class Order
         $address_id = isset($this->address_id) ? (int) $this->address_id : null;
         $total_amount = (float) $this->total_amount;
         $status = isset($this->status) ? htmlspecialchars(strip_tags($this->status)) : 'pending';
-        $payment_method = isset($this->payment_method) ? htmlspecialchars( strip_tags($this->payment_method)) : null;
+        $payment_method = isset($this->payment_method) ? htmlspecialchars(strip_tags($this->payment_method)) : null;
         $sql = 'INSERT INTO ' . $this->table . '
         (user_id, address_id, order_number, total_amount, status, payment_method)
         VALUES (:user_id, :address_id, :order_number, :total_amount, :status, :payment_method)';
@@ -46,7 +46,8 @@ class Order
     }
     public function addItem($order_id, $product_id, $quantity, $price)
     {
-        if (!is_numeric($order_id) || !is_numeric($product_id) || !is_numeric($quantity)|| (!is_numeric($price))) return false;
+        if (!is_numeric($order_id) || !is_numeric($product_id) || !is_numeric($quantity) || (!is_numeric($price)))
+            return false;
         $sql = 'INSERT INTO order_items (order_id, product_id, quantity, price)
         VALUES (:order_id, :product_id, :quantity, :price)';
         $stmt = $this->db->prepare($sql);
@@ -186,6 +187,43 @@ FROM ' . $this->table . ' o
         $stmt->bindValue(':order_id', $order_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function canBeReviewed($order_id, $user_id)
+    {
+        $sql = "SELECT o.status, 
+                COUNT(oi.id) as total_items,
+                COUNT(r.id) as reviewed_items
+                FROM orders o
+                JOIN order_items oi ON o.id = oi.order_id
+                LEFT JOIN reviews r ON oi.product_id = r.product_id 
+                       AND r.user_id = :user_id 
+                       AND r.order_id = :order_id
+                WHERE o.id = :order_id AND o.user_id = :user_id2
+                GROUP BY o.id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':order_id', $order_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id2', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return ($result && $result['status'] == 'delivered' &&
+            $result['total_items'] > $result['reviewed_items']);
+    }
+    public function getOrderWithAddress($order_id)
+    {
+        $sql = "SELECT o.*, u.username, u.email, u.full_name, u.phone,
+                       ua.*
+                FROM orders o
+                JOIN users u ON o.user_id = u.id
+                LEFT JOIN user_addresses ua ON o.address_id = ua.id
+                WHERE o.id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $order_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 

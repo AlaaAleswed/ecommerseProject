@@ -48,10 +48,10 @@ $latestProducts = $productObj->readAll(3, 0);
     <div class="row">
         <?php foreach($latestProducts as $p): ?>
         <div class="col-3">
-            <a href="product-details.php?id=<?= $p['id']; ?>">
+            <a href="products-details.php?id=<?= $p['id']; ?>">
                 <img src="adminDashboard/handlers/assets/<?= $productObj->getPrimaryImage($p['id']); ?>" />
             </a>
-            <a href="product-details.php?id=<?= $p['id']; ?>">
+            <a href="products-details.php?id=<?= $p['id']; ?>">
                 <h4><?= htmlspecialchars($p['name']); ?></h4>
             </a>
             <p style="color:#ff523b;font-weight:bold;;font-size: 0.9em"><?= number_format($p['price'], 2); ?> JD</p>

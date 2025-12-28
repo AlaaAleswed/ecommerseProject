@@ -6,7 +6,6 @@ require_once '../classes/Database.php';
 $db = Database::getInstance();
 $conn = $db->getConnection();
 
-// جلب كل الادمنز فقط
 $stmt = $conn->prepare("SELECT id, username, email FROM users WHERE role = 'admin'");
 $stmt->execute();
 $admins = $stmt->fetchAll();

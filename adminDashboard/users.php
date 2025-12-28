@@ -31,6 +31,7 @@ $users = $userObj->readAll();
                     <tbody>
                         <?php if (!empty($users)): ?>
                             <?php foreach ($users as $user): ?>
+                                <?php if ($user['role'] !== 'user') continue; ?>
                                 <tr>
                                     <td><?= $user['id'] ?></td>
                                     <td><?= htmlspecialchars($user['username']) ?></td>

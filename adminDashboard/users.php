@@ -1,11 +1,11 @@
 <?php
 include 'includes/header.php';
 include 'includes/sidebar.php';
-
-require_once 'classes/User.php';
+require_once "../classes/Database.php";
+require_once '../classes/User.php';
 
 $userObj = new User();
-$users = $userObj->getAllUsers();
+$users = $userObj->readAll();
 ?>
 >
 

@@ -1,3 +1,12 @@
+<?php
+require_once "classes/Database.php";
+require_once "classes/Product.php";
+
+$productObj = new Product();
+
+$latestProducts = $productObj->readAll(3, 0); 
+?>
+
 <div class="header">
     <div class="container">
 
@@ -35,167 +44,23 @@
 
 <!------------------------------ featured Products------------------------------>
 <div class="small-container">
-    <h2 class="title">Featured Products</h2>
-    <div class="row">
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-11.jpg"></a>
-            <a href="products-details.html">
-                <h4>Downshifter Sports Shoes</h4>
-            </a>
-            <div class="rating">
-                <!--(before this added awesome4 cdn font link to the head)added a cdn link by searching font awesome4 icon and from the site  search the star entering the first option and getting a link of this fa-star*-->
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-        </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-2.jpg"></a>
-            <h4>Lace-Up Running Shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-            </div>
-            <p>$35.00</p>
-        </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-3.jpg"></a>
-            <h4>Lace Fastening Shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$15.00</p>
-        </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-10.jpg"></a>
-            <h4>Flat Lace-Fastening Shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$48.00</p>
-        </div>
-    </div>
-
-
     <h2 class="title">Latest Products</h2>
     <div class="row">
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-5.jpg"></a>
-            <h4>Flat Heel gray hoes</h4>
-            <div class="rating">
-                <!--(before this added awesome4 cdn font link to the head)added a cdn link by searching font awesome4 icon and from the site  search the star entering the first option and getting a link of this fa-star*-->
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
+        <?php foreach($latestProducts as $p): ?>
+        <div class="col-3">
+            <a href="product-details.php?id=<?= $p['id']; ?>">
+                <img src="adminDashboard/handlers/assets/<?= $productObj->getPrimaryImage($p['id']); ?>" />
+            </a>
+            <a href="product-details.php?id=<?= $p['id']; ?>">
+                <h4><?= htmlspecialchars($p['name']); ?></h4>
+            </a>
+            <p style="color:#ff523b;font-weight:bold;;font-size: 0.9em"><?= number_format($p['price'], 2); ?> JD</p>
         </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-3.jpg"></a>
-            <h4>Lace-Fastening black Shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-            </div>
-            <p>$21.00</p>
-        </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-7.jpg"></a>
-            <h4>HRX Men's cotton socks</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$09.00</p>
-        </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-2.jpg"></a>
-            <h4>Lace-Up Running Shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$35.00</p>
-        </div>
-    </div>
-    <!--new row for the latest product-->
-    <div class="row">
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-7.jpg"></a>
-            <h4>HRX cotton socks</h4>
-            <div class="rating">
-                <!--(before this added awesome4 cdn font link to the head)added a cdn link by searching font awesome4 icon and from the site  search the star entering the first option and getting a link of this fa-star*-->
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$10.00</p>
-        </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-10.jpg"></a>
-            <h4>Flat Lace-Fastening Shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-            </div>
-            <p>$48.00</p>
-        </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-11.jpg"></a>
-            <h4>Loafers Men (Gray)</h4>
-            <div class="rating">
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$15.00</p>
-        </div>
-        <div class="col-4">
-            <a href="products-details.html"><img src="assets/product-12.jpg"></a>
-            <h4>Lace-Fastening white Shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p>$21.00</p>
-        </div>
+        <?php endforeach; ?>
     </div>
 </div>
+
+
 
 <!--------------------------`   offer   --------------------------------->
 <div class="offer">
@@ -206,10 +71,10 @@
             </div>
             <div class="col-2">
                 <p>Exclusively Available on RedStore</p>
-                <h1>Sports Shoes</h1>
-                <small> Buy latest collections of sports shoes online on Redstore at best prices from top brands
-                    such as Adidas, Nike, Puma, Asics, and Sparx at your leisure at best prices. </small><br>
-                <a href="products.html" class="btn">Buy Now &#8594;</a>
+                <h1>Sports Tools</h1>
+                <small> Buy latest collections of sports Tools online on Redstore at best prices from top brands
+                     at your leisure at best prices. </small><br>
+                <a href="products.php" class="btn">Buy Now &#8594;</a>
             </div>
         </div>
     </div>

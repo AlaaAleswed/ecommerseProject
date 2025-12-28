@@ -3,8 +3,10 @@ include 'includes/header.php';
 include 'includes/sidebar.php';
 require_once "../classes/Database.php";
 require_once "../classes/Category.php";
+require_once "../classes/Product.php";
 
 $categoryObj = new Category();
+$productObj  = new Product();
 $categories = $categoryObj->readAll(100, 0);
 $categories = $categoryObj->getAll();
 ?>
@@ -69,7 +71,7 @@ $categories = $categoryObj->getAll();
                             <tr>
                                 <td><?= $cat['id'] ?></td>
                                 <td><?= htmlspecialchars($cat['name']) ?></td>
-                                <td>0</td> <!-- chaeck it later -->
+                                <td><?= $productObj->getTotalCount('', $cat['id']) ?></td> 
                                 <td>
                                     <i class="bi bi-plus-circle-fill text-primary" role="button"
                                         onclick="showAddSale(<?= $cat['id'] ?>)">

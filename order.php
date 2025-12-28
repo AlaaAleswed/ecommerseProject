@@ -1,5 +1,5 @@
-<?php include "includes/header.php"; ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<?php include "includes/header.php"; ?>
 
 <div class="container my-5">
     <div class="row justify-content-center">

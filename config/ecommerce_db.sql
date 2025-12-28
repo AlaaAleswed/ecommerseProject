@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2025 at 07:59 PM
+-- Generation Time: Dec 28, 2025 at 08:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,6 +47,15 @@ CREATE TABLE `categories` (
   `description` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `description`, `created_at`) VALUES
+(3, 'Warm-up and Stretching Tools', 'Essential gear for warm-ups, mobility, and fast recovery.', '2025-12-27 18:31:23'),
+(4, 'General Exercise Accessories', 'Versatile essentials for floor workouts, balance, and core strength.', '2025-12-27 18:31:45'),
+(5, 'Strength and Training Tools', 'Powerful weights and equipment to build muscle and full-body power.', '2025-12-27 18:31:59');
 
 -- --------------------------------------------------------
 
@@ -154,6 +163,21 @@ CREATE TABLE `products` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `old_price`, `category_id`, `primary_image_id`, `stock`, `featured`, `discount_percent`, `created_at`) VALUES
+(8, 'Jump Rope', 'Lightweight, adjustable speed rope for high-intensity cardio', 2.00, 2.00, 3, 4, 0, 0, 0, '2025-12-27 18:39:53'),
+(9, 'Resistance Bands', 'Versatile set of bands for full-body resistance exercises', 5.00, 5.00, 3, 5, 0, 0, 0, '2025-12-27 18:41:00'),
+(10, 'Foam Roller', 'High-density roller for myofascial release', 10.00, 10.00, 3, 6, 0, 0, 0, '2025-12-27 18:41:42'),
+(11, 'Yoga Mat', 'cushioned mat providing stability and comfort for yoga', 10.00, 10.00, 4, 7, 0, 0, 0, '2025-12-27 18:42:36'),
+(13, 'Balance Board', 'Unstable platform for balance training', 7.00, 7.00, 4, 9, 0, 0, 0, '2025-12-27 18:44:14'),
+(14, 'Ab Wheel', 'Dual-wheel roller for intense core strengthening', 20.00, 20.00, 4, 10, 0, 0, 0, '2025-12-27 18:45:33'),
+(15, 'Adjustable Dumbbells', 'Compact, quick-adjust weights for progressive strength training', 70.00, 70.00, 5, 11, 0, 0, 0, '2025-12-27 18:46:54'),
+(16, 'Kettlebell', 'Cast iron weight with handle for dynamic full-body movements', 55.00, 55.00, 5, 12, 0, 0, 0, '2025-12-27 18:47:27'),
+(17, 'Medicine Ball', 'Weighted ball for explosive core workouts', 30.00, 30.00, 5, 13, 0, 0, 0, '2025-12-27 18:48:07');
+
 -- --------------------------------------------------------
 
 --
@@ -171,6 +195,21 @@ CREATE TABLE `product_images` (
   `display_order` int(11) DEFAULT 0,
   `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `filename`, `original_name`, `file_size`, `mime_type`, `is_primary`, `display_order`, `uploaded_at`) VALUES
+(4, 8, 'product_695027f946cc63.77719141.jpg', 'احماء-حبل قفز.jpg', 77104, 'image/jpeg', 0, 0, '2025-12-27 18:39:53'),
+(5, 9, 'product_6950283c4b4545.70933216.jpg', 'احماء-حزام تمدد.jpg', 85294, 'image/jpeg', 0, 0, '2025-12-27 18:41:00'),
+(6, 10, 'product_6950286656e5e6.93062264.jpg', 'احماء-اسطوانة رغوة التمدد.jpg', 59810, 'image/jpeg', 0, 0, '2025-12-27 18:41:42'),
+(7, 11, 'product_6950289c1f89c1.63135478.jpg', 'اكسسوارات-سجادة يوغا.jpg', 102244, 'image/jpeg', 0, 0, '2025-12-27 18:42:36'),
+(9, 13, 'product_695028fe5c22e3.93576184.jpg', 'اكسسوارات-بالون التوازن.jpg', 53605, 'image/jpeg', 0, 0, '2025-12-27 18:44:14'),
+(10, 14, 'product_6950294db6cbb6.10407462.jpg', 'اكسسوارات عدلة تمرين البطن.jpg', 51561, 'image/jpeg', 0, 0, '2025-12-27 18:45:33'),
+(11, 15, 'product_6950299e115b82.11455898.jpg', 'تدريب-دامبل قابل للتعديل.jpg', 64574, 'image/jpeg', 0, 0, '2025-12-27 18:46:54'),
+(12, 16, 'product_695029bfafb589.38931123.jpg', 'تدريب-كيتل بيل.jpg', 52313, 'image/jpeg', 0, 0, '2025-12-27 18:47:27'),
+(13, 17, 'product_695029e7553519.94701092.jpg', 'تدريب-كرة علاجية.jpg', 69917, 'image/jpeg', 0, 0, '2025-12-27 18:48:07');
 
 -- --------------------------------------------------------
 
@@ -217,6 +256,16 @@ CREATE TABLE `users` (
   `role` enum('admin','user') DEFAULT 'user',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `full_name`, `phone`, `role`, `created_at`) VALUES
+(1, 'alaa', 'alaa@gmail.com', '$2y$10$e2UNlmGXGO8hjbs7et0C8.UxZBTVv7oYB8t.sJ8fQ9zYtzEQD2wEG', NULL, NULL, 'user', '2025-12-27 14:11:05'),
+(2, 'admin', 'admin@gmailcom', '$2y$10$zGsFUDL8Lp.aKqbuJmW/GOzvC9Mra1Sl20Or7yBUneJa4aTzce15e', NULL, NULL, 'admin', '2025-12-27 14:20:43'),
+(4, 'sara', 'sara@gmail.com', '$2y$10$byxhqlTRT1A6FaqS9chQjuuVRzGod5XUFWW/zA8gOYeqVSwXD3mTi', NULL, NULL, 'admin', '2025-12-27 14:23:52'),
+(5, 'farah', 'farah@gmail.com', '$2y$10$6vcU9ZJk2VtylcDEpCh/GOHwutBCbaukZv3WzQacK3ZRfM0s4f1zK', NULL, NULL, 'user', '2025-12-28 17:28:30');
 
 -- --------------------------------------------------------
 
@@ -399,13 +448,13 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -435,13 +484,13 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -453,7 +502,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_addresses`

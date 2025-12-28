@@ -8,20 +8,26 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: account.php');
     exit();
 }
+if ($order_id = $order->create()) {
+    
+} else {
+    echo "Order failed - check order class";
+    exit;
+}
 
 $user_id = $_SESSION['user_id'];
 $cart = new Cart();
 $order = new Order();
 $address = new Address();
 
-// Get cart items
+
 $cart_items = $cart->readAll($user_id);
 if (empty($cart_items)) {
     header('Location: cart.php');
     exit();
 }
 
-// Calculate totals
+
 $subtotal = 0;
 foreach ($cart_items as $item) {
     $price = $item['price'] * (1 - $item['discount_percent'] / 100);
@@ -30,20 +36,20 @@ foreach ($cart_items as $item) {
 $tax = $subtotal * 0.10;
 $total = $subtotal + $tax;
 
-// Get user addresses - handle multiple address types
+
 $all_addresses = $address->getUserAddresses($user_id);
 
-// For shipping: show shipping and home addresses
+
 $shipping_addresses = array_filter($all_addresses, function($a) {
     return in_array($a['address_type'], ['shipping', 'home']);
 });
 
-// For billing: show billing, home, and work addresses  
+
 $billing_addresses = array_filter($all_addresses, function($a) {
     return in_array($a['address_type'], ['billing', 'home', 'work']);
 });
 
-// Handle checkout
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $shipping_id = $_POST['shipping_address'] ?? null;
     $use_same_billing = isset($_POST['same_billing']);
@@ -111,7 +117,7 @@ include 'includes/header.php';
                         <p class="or-divider">- OR -</p>
                     <?php endif; ?>
                     
-                    <a href="add-address.php?type=shipping" class="btn">Add New Shipping Address</a>
+                    <a href="add-address.php?type=shipping" class="btn btn-secondary">Add New Shipping Address</a>
                 </div>
                 
                 <!-- Billing Address -->
@@ -201,7 +207,7 @@ include 'includes/header.php';
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn complete-order">Complete Order</button>
+                    <button type="submit" class="btn btn-primary btn-large">Complete Order</button>
                     
                     <p class="terms">
                         By completing your order, you agree to our <a href="#">Terms of Service</a>.

@@ -11,13 +11,21 @@ $user_id = $_SESSION['user_id'];
 $address_type = $_GET['type'] ?? 'shipping';
 $address = new Address();
 
+// Validate address type
+$valid_types = ['home', 'work', 'billing', 'shipping', 'other'];
+if (!in_array($address_type, $valid_types)) {
+    $address_type = 'shipping';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address->user_id = $user_id;
     $address->address_type = $address_type;
     $address->full_name = $_POST['full_name'];
     $address->phone = $_POST['phone'];
     $address->address_line1 = $_POST['address_line1'];
+    $address->address_line2 = $_POST['address_line2'] ?? '';
     $address->city = $_POST['city'];
+    $address->state = $_POST['state'] ?? '';
     $address->country = $_POST['country'] ?? 'US';
     $address->postal_code = $_POST['postal_code'] ?? '';
     $address->is_default = isset($_POST['is_default']) ? 1 : 0;
@@ -25,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($address->create()) {
         header('Location: checkout.php');
         exit();
+    } else {
+        $error = "Failed to save address. Please try again.";
     }
 }
 
@@ -34,40 +44,63 @@ include 'includes/header.php';
 <div class="small-container cart-page">
     <h2>Add <?= ucfirst($address_type) ?> Address</h2>
     
+    <?php if (isset($error)): ?>
+        <div class="error-message"><?= $error ?></div>
+    <?php endif; ?>
+    
     <form method="POST" action="" class="address-form">
+        <input type="hidden" name="address_type" value="<?= $address_type ?>">
+        
         <div class="form-group">
-            <input type="text" name="full_name" placeholder="Full Name" required>
+            <input type="text" name="full_name" placeholder="Full Name" required 
+                   value="<?= isset($_POST['full_name']) ? htmlspecialchars($_POST['full_name']) : '' ?>">
         </div>
         
         <div class="form-group">
-            <input type="text" name="phone" placeholder="Phone" required>
+            <input type="text" name="phone" placeholder="Phone" required
+                   value="<?= isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '' ?>">
         </div>
         
         <div class="form-group">
-            <input type="text" name="address_line1" placeholder="Address" required>
+            <input type="text" name="address_line1" placeholder="Address Line 1" required
+                   value="<?= isset($_POST['address_line1']) ? htmlspecialchars($_POST['address_line1']) : '' ?>">
+        </div>
+        
+        <div class="form-group">
+            <input type="text" name="address_line2" placeholder="Address Line 2 (Optional)"
+                   value="<?= isset($_POST['address_line2']) ? htmlspecialchars($_POST['address_line2']) : '' ?>">
         </div>
         
         <div class="form-row">
             <div class="form-group">
-                <input type="text" name="city" placeholder="City" required>
+                <input type="text" name="city" placeholder="City" required
+                       value="<?= isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '' ?>">
             </div>
             <div class="form-group">
-                <input type="text" name="postal_code" placeholder="ZIP Code">
+                <input type="text" name="state" placeholder="State/Province"
+                       value="<?= isset($_POST['state']) ? htmlspecialchars($_POST['state']) : '' ?>">
             </div>
         </div>
         
-        <div class="form-group">
-            <input type="text" name="country" placeholder="Country" value="US">
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" name="postal_code" placeholder="Postal Code"
+                       value="<?= isset($_POST['postal_code']) ? htmlspecialchars($_POST['postal_code']) : '' ?>">
+            </div>
+            <div class="form-group">
+                <input type="text" name="country" placeholder="Country" value="US"
+                       value="<?= isset($_POST['country']) ? htmlspecialchars($_POST['country']) : 'US' ?>">
+            </div>
         </div>
         
         <div class="form-check">
-            <input type="checkbox" name="is_default" id="is_default">
+            <input type="checkbox" name="is_default" id="is_default" <?= isset($_POST['is_default']) ? 'checked' : '' ?>>
             <label for="is_default">Set as default <?= $address_type ?> address</label>
         </div>
         
         <div class="form-actions">
             <button type="submit" class="btn">Save Address</button>
-            <a href="checkout.php" class="btn cancel-btn">Cancel</a>
+            <a href="checkout.php" class="btn">Cancel</a>
         </div>
     </form>
 </div>

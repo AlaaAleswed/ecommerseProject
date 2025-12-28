@@ -37,7 +37,6 @@ if ($order_details['status'] === 'delivered') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     $success = true;
     
-    // Check if ratings is set and is an array
     if (isset($_POST['ratings']) && is_array($_POST['ratings'])) {
         foreach ($_POST['ratings'] as $product_id => $rating) {
             if ($rating > 0) {
@@ -160,7 +159,7 @@ include 'includes/header.php';
                     </div>
                     <?php endforeach; ?>
                     
-                    <button type="submit" name="submit_review" class="btn">Submit Reviews</button>
+                    <button type="submit" name="submit_review" class="btn btn-primary">Submit Review</button>
                 </form>
             </div>
             <?php elseif (isset($_GET['reviewed'])): ?>
@@ -190,8 +189,8 @@ include 'includes/header.php';
                 </div>
                 
                 <div class="order-actions">
-                    <a href="my-orders.php" class="btn">View All Orders</a>
-                    <a href="products.php" class="btn cancel-btn">Continue Shopping</a>
+                    <a href="my-orders.php" class="btn btn-primary">View All Orders</a>
+                    <a href="products.php" class="btn btn-secondary">Continue Shopping</a>
                 </div>
             </div>
         </div>

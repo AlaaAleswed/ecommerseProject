@@ -42,9 +42,9 @@ include 'includes/header.php';
                         Total: <strong>$<?= number_format($order_item['total_amount'], 2) ?></strong>
                     </div>
                     <div class="order-actions">
-                        <a href="order.php?id=<?= $order_item['id'] ?>" class="btn">View Details</a>
+                        <a href="order.php?id=<?= $order_item['id'] ?>" class="btn btn-primary">View Details</a>
                         <?php if ($order_item['status'] === 'delivered'): ?>
-                            <a href="order.php?id=<?= $order_item['id'] ?>" class="btn review-btn">Leave Review</a>
+                            <a href="order.php?id=<?= $order_item['id'] ?>" class="btn btn-success">Leave Review</a>
                         <?php endif; ?>
                     </div>
                 </div>

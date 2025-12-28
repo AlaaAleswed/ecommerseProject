@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-$cart_items = $cart->readAll($user_id);
+$cart_items = $cart->readAll($user_id, 100, 0) ?: [];
 $subtotal = 0;
 $tax_rate = 0.10;
 
@@ -85,14 +85,14 @@ include 'includes/header.php';
                         <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
                         <input type="number" name="quantity" value="<?= $item['quantity'] ?>" 
                                min="1" max="99">
-                        <button type="submit" name="update_quantity" class="btn">Update</button>
+                        <button type="submit" name="update_quantity" class="btn btn-xs">Update</button>
                     </form>
                 </td>
                 <td>$<?= number_format($item_total, 2) ?></td>
                 <td>
                     <form method="POST" action="" onsubmit="return confirm('Remove this item?');">
                         <input type="hidden" name="cart_id" value="<?= $item['id'] ?>">
-                        <button type="submit" name="remove_item" class="btn">Remove</button>
+                        <button type="submit" name="remove_item" class="btn btn-danger btn-small">Remove</button>
                     </form>
                 </td>
             </tr>
@@ -101,9 +101,9 @@ include 'includes/header.php';
 
         <div class="cart-actions">
             <form method="POST" action="" onsubmit="return confirm('Clear entire cart?');">
-                <button type="submit" name="clear_cart" class="btn">Clear Cart</button>
+                <button type="submit" name="clear_cart" class="btn btn-secondary">Clear Cart</button>
             </form>
-            <a href="checkout.php" class="btn">Proceed to Checkout</a>
+            <a href="checkout.php" class="btn btn-success">Proceed to Checkout</a>
         </div>
 
         <div class="total-price">

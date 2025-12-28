@@ -32,11 +32,6 @@ class Database {
         }
     }
 
-    /**
-     * Get the singleton instance of Database
-     * 
-     * @return Database
-     */
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -44,11 +39,6 @@ class Database {
         return self::$instance;
     }
 
-    /**
-     * Get the database connection
-     * 
-     * @return mysqli|PDO Returns either a mysqli or PDO connection object
-     */
     public function getConnection() {
         return $this->conn;
     }

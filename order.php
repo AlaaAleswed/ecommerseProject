@@ -1,4 +1,5 @@
 <?php include "includes/header.php"; ?>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="container my-5">
     <div class="row justify-content-center">
@@ -53,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <hr>
 
                         <div class="mb-3">
@@ -87,5 +88,6 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <?php include "includes/footer.php"; ?>
